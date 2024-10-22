@@ -10,6 +10,7 @@ namespace Winter.Assets.Project.Scripts.Runtime.Services.Input
     {
         public event Action UpdatePauseState;
         public event Action SkipIntroPerformed;
+        public Action InstrumentSwitched;
 
         private PlayerControls _inputActions;
 
@@ -59,6 +60,11 @@ namespace Winter.Assets.Project.Scripts.Runtime.Services.Input
         public void OnSkipIntro(InputAction.CallbackContext context)
         {
             SkipIntroPerformed?.Invoke();
+        }
+
+        public void OnActivateIcePicks(InputAction.CallbackContext context)
+        {
+            InstrumentSwitched?.Invoke();
         }
     }
 }

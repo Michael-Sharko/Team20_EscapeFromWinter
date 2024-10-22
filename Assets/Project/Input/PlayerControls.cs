@@ -89,6 +89,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateIcePicks"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d60fb2e-71c1-4e2d-8dd1-a899bf25ccba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SkipIntro"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ccd732e-c4db-4338-8da9-f938f96c7824"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateIcePicks"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_SkipIntro = m_Gameplay.FindAction("SkipIntro", throwIfNotFound: true);
+        m_Gameplay_ActivateIcePicks = m_Gameplay.FindAction("ActivateIcePicks", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +316,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_Sprint;
     private readonly InputAction m_Gameplay_SkipIntro;
+    private readonly InputAction m_Gameplay_ActivateIcePicks;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -306,6 +328,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputAction @SkipIntro => m_Wrapper.m_Gameplay_SkipIntro;
+        public InputAction @ActivateIcePicks => m_Wrapper.m_Gameplay_ActivateIcePicks;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -336,6 +359,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SkipIntro.started += instance.OnSkipIntro;
             @SkipIntro.performed += instance.OnSkipIntro;
             @SkipIntro.canceled += instance.OnSkipIntro;
+            @ActivateIcePicks.started += instance.OnActivateIcePicks;
+            @ActivateIcePicks.performed += instance.OnActivateIcePicks;
+            @ActivateIcePicks.canceled += instance.OnActivateIcePicks;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -361,6 +387,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SkipIntro.started -= instance.OnSkipIntro;
             @SkipIntro.performed -= instance.OnSkipIntro;
             @SkipIntro.canceled -= instance.OnSkipIntro;
+            @ActivateIcePicks.started -= instance.OnActivateIcePicks;
+            @ActivateIcePicks.performed -= instance.OnActivateIcePicks;
+            @ActivateIcePicks.canceled -= instance.OnActivateIcePicks;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -387,5 +416,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnSkipIntro(InputAction.CallbackContext context);
+        void OnActivateIcePicks(InputAction.CallbackContext context);
     }
 }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using Winter.Assets.Project.Scripts.Runtime.Core.Player.Data;
 
@@ -13,6 +14,7 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Player
         private float _jumpForce;
         private bool _isCrouching;
         private bool _isSprinting;
+        private bool _isClimbing;
 
         public PlayerMotorService(CharacterController controller, Transform motorCamera, PlayerData data)
         {
@@ -58,8 +60,10 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Player
         {
             if (_isSprinting)
                 return _data.SprintMoveSpeed;
-            if (_isCrouching)
+            else if (_isCrouching)
                 return _data.CrouchMoveSpeed;
+            else if (_isClimbing)
+                return _data.ClimbingMoveSpeed;
 
             return _data.MoveSpeed;
         }
@@ -74,6 +78,30 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Player
         public void SetSprint(bool isSprinting)
         {
             _isSprinting = isSprinting;
+        }
+
+        public void Climbing(Vector2 moveDirection, bool isFalling)
+        {
+            if (_jumpForce < 0.1f)
+            {
+                _isClimbing = true;
+                SetCrouch(false);
+
+                var currentMoveSpeed = GetCurrentMoveSpeed(); 
+                Vector3 moveVector = _controller.transform.TransformDirection(new Vector3(moveDirection.x, moveDirection.y, 0)).normalized;
+
+                // _currentMoveDirection.y = currentMoveSpeed;
+                _currentMoveDirection = Vector3.SmoothDamp(_currentMoveDirection, moveVector * currentMoveSpeed, ref _currentVelocity, _data.SmoothMoveDeltaTime);
+            }
+
+            else if (isFalling)
+            {
+                _isClimbing = false;
+                _jumpForce = _currentMoveDirection.y;
+
+                UpdateGravity();
+            }
+            _controller.Move(_currentMoveDirection * Time.deltaTime);
         }
     }
 }
