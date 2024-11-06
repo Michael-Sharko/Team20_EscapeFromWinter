@@ -67,6 +67,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ActivateIcePicks",
+                    "type": "Button",
+                    "id": "3d60fb2e-71c1-4e2d-8dd1-a899bf25ccba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "IcePickSwinging",
+                    "type": "Button",
+                    "id": "eaef5bbf-ce4a-4f41-895e-1bbf6f97eb4d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -190,6 +208,50 @@
                     "action": "SkipIntro",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ccd732e-c4db-4338-8da9-f938f96c7824",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateIcePicks",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Left & Right Mouse Buttons",
+                    "id": "e79a31bd-d252-4116-b1fc-8ead84830a30",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IcePickSwinging",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "271f42a7-4434-4964-84da-aba0b2b72064",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IcePickSwinging",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "529270c9-687f-47b4-b037-5b7d945251ef",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IcePickSwinging",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

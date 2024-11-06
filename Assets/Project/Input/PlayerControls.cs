@@ -89,6 +89,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateIcePicks"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d60fb2e-71c1-4e2d-8dd1-a899bf25ccba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""IcePickSwinging"",
+                    ""type"": ""Button"",
+                    ""id"": ""eaef5bbf-ce4a-4f41-895e-1bbf6f97eb4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +230,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SkipIntro"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ccd732e-c4db-4338-8da9-f938f96c7824"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateIcePicks"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Left & Right Mouse Buttons"",
+                    ""id"": ""e79a31bd-d252-4116-b1fc-8ead84830a30"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IcePickSwinging"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""271f42a7-4434-4964-84da-aba0b2b72064"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IcePickSwinging"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""529270c9-687f-47b4-b037-5b7d945251ef"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IcePickSwinging"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -227,6 +289,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_SkipIntro = m_Gameplay.FindAction("SkipIntro", throwIfNotFound: true);
+        m_Gameplay_ActivateIcePicks = m_Gameplay.FindAction("ActivateIcePicks", throwIfNotFound: true);
+        m_Gameplay_IcePickSwinging = m_Gameplay.FindAction("IcePickSwinging", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +359,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_Sprint;
     private readonly InputAction m_Gameplay_SkipIntro;
+    private readonly InputAction m_Gameplay_ActivateIcePicks;
+    private readonly InputAction m_Gameplay_IcePickSwinging;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -306,6 +372,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputAction @SkipIntro => m_Wrapper.m_Gameplay_SkipIntro;
+        public InputAction @ActivateIcePicks => m_Wrapper.m_Gameplay_ActivateIcePicks;
+        public InputAction @IcePickSwinging => m_Wrapper.m_Gameplay_IcePickSwinging;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -336,6 +404,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SkipIntro.started += instance.OnSkipIntro;
             @SkipIntro.performed += instance.OnSkipIntro;
             @SkipIntro.canceled += instance.OnSkipIntro;
+            @ActivateIcePicks.started += instance.OnActivateIcePicks;
+            @ActivateIcePicks.performed += instance.OnActivateIcePicks;
+            @ActivateIcePicks.canceled += instance.OnActivateIcePicks;
+            @IcePickSwinging.started += instance.OnIcePickSwinging;
+            @IcePickSwinging.performed += instance.OnIcePickSwinging;
+            @IcePickSwinging.canceled += instance.OnIcePickSwinging;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -361,6 +435,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SkipIntro.started -= instance.OnSkipIntro;
             @SkipIntro.performed -= instance.OnSkipIntro;
             @SkipIntro.canceled -= instance.OnSkipIntro;
+            @ActivateIcePicks.started -= instance.OnActivateIcePicks;
+            @ActivateIcePicks.performed -= instance.OnActivateIcePicks;
+            @ActivateIcePicks.canceled -= instance.OnActivateIcePicks;
+            @IcePickSwinging.started -= instance.OnIcePickSwinging;
+            @IcePickSwinging.performed -= instance.OnIcePickSwinging;
+            @IcePickSwinging.canceled -= instance.OnIcePickSwinging;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -387,5 +467,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnSkipIntro(InputAction.CallbackContext context);
+        void OnActivateIcePicks(InputAction.CallbackContext context);
+        void OnIcePickSwinging(InputAction.CallbackContext context);
     }
 }

@@ -25,6 +25,7 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Menu
         [Header("Select Level Settings")]
         [SerializeField] private Button _selectLevelOne;
         [SerializeField] private Button _selectLevelTwo;
+        [SerializeField] private Button _selectLevelThree;
         [SerializeField] private GameObject _panelWithSelectLevelButtons;
 
         private void Start()
@@ -40,6 +41,7 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Menu
 
             _selectLevelOne.onClick.AddListener(OnSelectLevelOneButtonLicked);
             _selectLevelTwo.onClick.AddListener(OnSelectLevelTwoButtonLicked);
+            _selectLevelThree.onClick.AddListener(OnSelectLevelThreeButtonLicked);
 
             _musicPlayer.StartMusic();
         }
@@ -91,6 +93,12 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Menu
         private void OnSelectLevelTwoButtonLicked()
         {
             SceneManager.LoadScene("Lvl2");
+            UnsubscribeButtons();
+        }
+
+        private void OnSelectLevelThreeButtonLicked()
+        {
+            SceneManager.LoadScene("Lvl3");
             UnsubscribeButtons();
         }
 

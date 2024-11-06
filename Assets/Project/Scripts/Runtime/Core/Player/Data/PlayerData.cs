@@ -25,5 +25,9 @@ namespace Winter.Assets.Project.Scripts.Runtime.Core.Player.Data
 
         [field: Header("Sprint Settings")]
         [field: SerializeField] public float SprintMoveSpeed { get; private set; } = 9f;
+
+        [field: Header("Climbing Settings")]
+        [field:SerializeField] public float ClimbingMoveSpeed { get; private set; } = 5f;
+        [field:SerializeField] public float ClimbingEnduranceMaximum { get; private set; } = 100f;
     }
 }

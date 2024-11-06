@@ -25,3 +25,5 @@ MonoBehaviour:
   <CrouchHeightDelta>k__BackingField: 0.5
   <CrouchMoveSpeed>k__BackingField: 4
   <SprintMoveSpeed>k__BackingField: 9
+  <ClimbingMoveSpeed>k__BackingField: 25
+  <ClimbingEnduranceMaximum>k__BackingField: 500
